@@ -6,12 +6,43 @@ export function Videos() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const videos = [
-    { id: 1, src: "/video1.mp4", label: "Day 1" },
-    { id: 2, src: "/video2.mp4", label: "Day 2" },
-    { id: 3, src: "/video3.mp4", label: "Day 3" },
-    { id: 4, src: "/video4.mp4", label: "Day 4" },
-    { id: 5, src: "/video5.mp4", label: "Day 5" },
+    { id: 1, src: "https://lh3.googleusercontent.com/d/10IzoAhMNJ-5nI3To0v3Q9tT8ANVOKalj", label: "Day 1", type: "video" },
+    { id: 2, src: "https://drive.google.com/file/d/12fcJUD56rgFCFs-viRfYIdipj_qV0lDM/view?usp=drive_link", label: "Day 2", type: "video" },
+    { id: 3, src: "https://drive.google.com/file/d/1Ysk5ZGxfh-1s_zT9s6quUQoUBUw1o8BX/view?usp=drive_link", label: "Day 3", type: "video" },
+    { id: 4, src: "https://drive.google.com/file/d/1cAx6ong11E5p-RZxFbE_sO1M3lCwZJbL/view?usp=drive_link", label: "Day 4", type: "video" },
+    { id: 5, src: "https://drive.google.com/file/d/1k4LIjOwf6JTBgWT3zAmd6-crfFHlELbX/view?usp=drive_link", label: "Day 5", type: "video" },
   ];
+
+  const isGoogleDrive = (url: string) => {
+    return url.includes("drive.google.com") || url.includes("googleusercontent.com");
+  };
+
+  const getGoogleDriveEmbedUrl = (url: string) => {
+    if (url.includes("/preview")) return url;
+    
+    if (url.includes("googleusercontent.com/d/")) {
+      const parts = url.split("/d/");
+      if (parts[1]) {
+        const id = parts[1].split(/[?#/]/)[0];
+        return `https://drive.google.com/file/d/${id}/preview`;
+      }
+    }
+    
+    if (url.includes("/file/d/")) {
+      const parts = url.split("/file/d/");
+      if (parts[1]) {
+        const id = parts[1].split(/[?#/]/)[0];
+        return `https://drive.google.com/file/d/${id}/preview`;
+      }
+    }
+
+    const idMatch = url.match(/[?&]id=([^&?#]+)/);
+    if (idMatch && idMatch[1]) {
+      return `https://drive.google.com/file/d/${idMatch[1]}/preview`;
+    }
+
+    return url;
+  };
 
   return (
     <section id="videos" className="col-span-1 md:col-span-12 bg-zinc-900 border border-zinc-800 rounded-3xl p-6 md:p-8 flex flex-col">
@@ -50,23 +81,27 @@ export function Videos() {
                       <span className="text-xs font-bold uppercase tracking-widest text-zinc-300">{video.label}</span>
                     </div>
                     <div className="group relative rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 aspect-video flex-1 shadow-md">
-                      <video 
-                        className="w-full h-full object-cover bg-zinc-950" 
-                        controls 
-                        preload="metadata"
-                      >
-                        <source src={video.src} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
+                      {isGoogleDrive(video.src) ? (
+                        <iframe
+                          src={getGoogleDriveEmbedUrl(video.src)}
+                          className="absolute inset-0 w-full h-full border-0 bg-zinc-950"
+                          allow="autoplay; encrypted-media"
+                          allowFullScreen
+                          title={video.label}
+                        />
+                      ) : (
+                        <video 
+                          className="w-full h-full object-cover bg-zinc-950" 
+                          controls 
+                          preload="metadata"
+                        >
+                          <source src={video.src} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      )}
                     </div>
                   </div>
                 ))}
-              </div>
-              
-              <div className="mt-6 text-center">
-                <p className="text-xs text-zinc-500">
-                  (請將您的五個影片上傳至 public 資料夾，並分別命名為 video1.mp4 ~ video5.mp4)
-                </p>
               </div>
             </div>
           </motion.div>

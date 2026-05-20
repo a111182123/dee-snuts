@@ -17,7 +17,12 @@ export function Hero() {
           className="relative"
         >
           <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-zinc-800 overflow-hidden flex items-center justify-center border-4 border-zinc-900 shadow-xl relative z-20">
-            <img src="/avatar.jpg" alt="Profile" className="w-full h-full object-cover" />
+            <img 
+              src="https://lh3.googleusercontent.com/d/1m67fWklYpht24_-WUffdiCvUI1ddp8Qs" 
+              alt="Profile" 
+              className="w-full h-full object-cover" 
+              referrerPolicy="no-referrer"
+            />
           </div>
           <div className="absolute -bottom-2 -right-2 w-16 h-16 bg-indigo-500/20 rounded-full flex items-center justify-center shadow-lg animate-pulse backdrop-blur-sm border border-indigo-500/30" />
           <div className="absolute top-2 -left-6 w-10 h-10 bg-indigo-400/20 rounded-full flex items-center justify-center shadow-md animate-bounce border border-indigo-400/30" style={{ animationDuration: '3s' }} />
