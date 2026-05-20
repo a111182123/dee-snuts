@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
 import { cn } from "../lib/utils";
 
 const navLinks = [
@@ -7,6 +7,7 @@ const navLinks = [
   { name: "關於我", id: "about" },
   { name: "工作經歷", id: "experience" },
   { name: "作業 (紐約行程)", id: "itinerary" },
+  { name: "3D 作業", id: "models" },
   { name: "學歷與語言", id: "education" },
   { name: "與我聯絡", id: "contact" },
 ];

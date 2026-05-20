@@ -8,6 +8,7 @@ import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Experience } from './components/Experience';
 import { Itinerary } from './components/Itinerary';
+import { ThreeDModelShowcase } from './components/ThreeDModelShowcase';
 import { Videos } from './components/Videos';
 import { Education } from './components/Education';
 import { Contact } from './components/Contact';
@@ -22,6 +23,7 @@ export default function App() {
         <Experience />
         <Itinerary />
         <Videos />
+        <ThreeDModelShowcase />
         <Education />
         <Contact />
       </main>
